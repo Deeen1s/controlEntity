@@ -1,0 +1,132 @@
+syntax = "proto3";
+
+package entity;
+
+option go_package = "/entity";
+
+
+
+// Сущности User
+message User {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+  string created_at = 4;
+  string updated_at = 5;
+}
+
+message CreateUserRequest { // Создание пользователя
+
+  string name = 1;
+  string email = 2;
+}
+message CreateUserResponse {
+  User user = 1;
+}
+message ListUsersRequest {} // Получение всех пользователей
+
+message ListUsersResponse {
+  repeated User users = 1;
+}
+
+// Получение пользователя по ID
+message GetUserRequest {
+  int64 id = 1;
+}
+
+message GetUserResponse {
+  User user = 1;
+}
+
+// Обновление пользователя
+message UpdateUserRequest {
+  int64 id = 1;
+  string name = 2;
+  string email = 3;
+}
+
+message UpdateUserResponse {
+  User user = 1;
+}
+message DeleteUserRequest { // Удаление пользователя
+  int64 id = 1;
+}
+message DeleteUserResponse {
+  bool success = 1;
+}
+
+// Сущности Product
+message Product {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+  int64 userID = 5;
+  string created_at = 6;
+  string updated_at = 7;
+}
+
+message CreateProductRequest { // Создание product
+  string name = 1;
+  string description = 2;
+  float price = 3;
+}
+message CreateProductResponse {
+  Product product = 1;
+}
+message ListProductRequest {} // Получение всех продуктов
+
+message ListProductResponse {
+  repeated Product products = 1;
+}
+
+message GetProductRequest { // Получение продукта по ID
+
+  int64 id = 1;
+}
+
+message GetProductResponse {
+  Product product = 1;
+}
+
+message UpdateProductRequest { // Обновление продукта
+
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+  float price = 4;
+}
+
+message UpdateProductResponse {
+  Product user = 1;
+}
+message DeleteProductRequest { // Удаление продукта
+  int64 id = 1;
+}
+message DeleteProductResponse {
+  bool success = 1;
+}
+
+message ListUserProductRequest { // Список товаров пользователя
+  int64 user_id = 1;
+}
+message ListUserProductResponse {
+   Product products = 1;
+}
+
+service UserService {
+  rpc CreateUser(CreateUserRequest) returns (CreateUserResponse);  // Создание нового юзера
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);  // Получение всех юзеров
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);  // Получение юзера по ID
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);  // Обновление информации о юзере
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse);// Удаление юзера по ID
+}
+
+service ProductService {
+  rpc CreateProduct(CreateProductRequest) returns (CreateProductResponse);  // Создание нового продукта
+  rpc ListProduct(ListProductRequest) returns (ListProductResponse);  // Получение всех продукта
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);  // Получение продукта по ID
+  rpc UpdateProduct(UpdateProductRequest) returns (UpdateProductResponse);  // Обновление информации о продукта
+  rpc DeleteProduct(DeleteProductRequest) returns (DeleteProductResponse);// Удаление продукта по ID
+  rpc UserProduct(ListUserProductRequest) returns (ListUserProductResponse); // Выведение товаров пользователя
+}

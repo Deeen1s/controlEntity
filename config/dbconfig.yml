@@ -1,8 +1,8 @@
 development:
   driver: postgres
   open: "host=localhost 
-         port=5432 
+         port=5438 
          user=postgres 
          password=qwerty 
-         dbname=yourdb 
+         dbname=postgres 
          sslmode=disable"
